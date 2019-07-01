@@ -29,3 +29,6 @@ Route::post('/orders/create', 'OrdersController@createOrders');
 //Vendors
 //Marco Fine Arts
 Route::get('/vendors/marcoFineArts', 'MacroFineArtsController@getPendingOrders');
+
+//Dream Junction
+Route::get('/vendors/dreamJunction', 'DreamJunctionController@getPendingOrders');
