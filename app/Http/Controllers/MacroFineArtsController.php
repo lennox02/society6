@@ -63,16 +63,21 @@ class MacroFineArtsController extends Controller
                            ->groupBy('orders.id')
                            ->get();
 
-       $pendingOrderProducts = DB::table('orders')
-                                 ->leftJoin('order_products', 'orders.id', '=', 'order_products.orders_id')
-                                 ->leftJoin('products', 'order_products.products_id', '=', 'products.id')
-                                 ->leftJoin('creatives', 'products.creatives_id', '=', 'creatives.id')
-                                 ->select('order_products.*', 'creatives.url')
-                                 ->where('order_products.vendor', self::VENDOR_ID)
-                                 ->where('order_products.status', Orders::STATUS_PENDING)
-                                 ->get();
 
-        echo $this->formatOrders($pendingOrders, $pendingOrderProducts);
+        if(count($pendingOrders)){
+            $pendingOrderProducts = DB::table('orders')
+                                     ->leftJoin('order_products', 'orders.id', '=', 'order_products.orders_id')
+                                     ->leftJoin('products', 'order_products.products_id', '=', 'products.id')
+                                     ->leftJoin('creatives', 'products.creatives_id', '=', 'creatives.id')
+                                     ->select('order_products.*', 'creatives.url')
+                                     ->where('order_products.vendor', self::VENDOR_ID)
+                                     ->where('order_products.status', Orders::STATUS_PENDING)
+                                     ->get();
+
+            echo $this->formatOrders($pendingOrders, $pendingOrderProducts);
+        } else {
+            echo '';
+        }
     }
 
     public function formatOrders(Collection $orders, Collection $orderProducts){
