@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use stdClass;
 
-class DreamJunctionController extends Controller
+class DreamJunctionController extends VendorController
 {
 
     /*
@@ -41,33 +41,6 @@ class DreamJunctionController extends Controller
     */
 
     const VENDOR_ID = 1;
-
-    public function getPendingOrders(){
-        //custom query getting all pending order ids
-        $pendingOrders = DB::table('orders')
-                           ->leftJoin('order_products', 'orders.id', '=', 'order_products.orders_id')
-                           ->select('orders.*')
-                           ->where('order_products.vendor', self::VENDOR_ID)
-                           ->where('order_products.status', Orders::STATUS_PENDING)
-                           ->groupBy('orders.id')
-                           ->get();
-
-
-        if(count($pendingOrders)){
-            $pendingOrderProducts = DB::table('orders')
-                                     ->leftJoin('order_products', 'orders.id', '=', 'order_products.orders_id')
-                                     ->leftJoin('products', 'order_products.products_id', '=', 'products.id')
-                                     ->leftJoin('creatives', 'products.creatives_id', '=', 'creatives.id')
-                                     ->select('order_products.*', 'creatives.url')
-                                     ->where('order_products.vendor', self::VENDOR_ID)
-                                     ->where('order_products.status', Orders::STATUS_PENDING)
-                                     ->get();
-
-            echo $this->formatOrders($pendingOrders, $pendingOrderProducts);
-        } else {
-            echo '';
-        }
-    }
 
     public function formatOrders(Collection $orders, Collection $orderProducts){
         //group order products by order id

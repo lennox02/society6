@@ -2,20 +2,47 @@
 
 namespace App\Http\Controllers;
 
+use App\OrderProducts as OrderProducts;
+use App\Orders as Orders;
+use App\Users as Users;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
+use stdClass;
 
 abstract class VendorController extends Controller
 {
-    /*
-        NOTE to reviewers
 
-        The plan was to move getPendingOrders from DreamJunctionController
-        and MacroFineArtsController to here, and generally try to abstract as
-        much as possible, by I fell short on time.
+    const VENDOR_ID = 0;
 
-    */
+    public function getPendingOrders(){
+        //custom query getting all pending order ids
+        $pendingOrders = DB::table('orders')
+                           ->leftJoin('order_products', 'orders.id', '=', 'order_products.orders_id')
+                           ->select('orders.*')
+                           ->where('order_products.vendor', static::VENDOR_ID)
+                           ->where('order_products.status', Orders::STATUS_PENDING)
+                           ->groupBy('orders.id')
+                           ->get();
 
-    public function getPendingOrders();
-    abstract public function formatOrder();
-    abstract public function formatOrderItems();
+
+        if(count($pendingOrders)){
+            $pendingOrderProducts = DB::table('orders')
+                                     ->leftJoin('order_products', 'orders.id', '=', 'order_products.orders_id')
+                                     ->leftJoin('products', 'order_products.products_id', '=', 'products.id')
+                                     ->leftJoin('creatives', 'products.creatives_id', '=', 'creatives.id')
+                                     ->select('order_products.*', 'creatives.url')
+                                     ->where('order_products.vendor', static::VENDOR_ID)
+                                     ->where('order_products.status', Orders::STATUS_PENDING)
+                                     ->get();
+
+            echo $this->formatOrders($pendingOrders, $pendingOrderProducts);
+        } else {
+            echo '';
+        }
+    }
+
+    abstract public function formatOrders(Collection $orders, Collection $orderProducts);
+    abstract public function formatOrder(stdClass $order, array $orderProducts);
+    abstract public function formatOrderItems(array $orderProducts);
 }
