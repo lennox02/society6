@@ -26,6 +26,9 @@ Route::post('/products/create', 'ProductsController@createProducts');
 //Orders
 Route::post('/orders/create', 'OrdersController@createOrders');
 
+//Order Products
+Route::post('/orderProducts/update', 'OrderProductsController@updateOrderProducts');
+
 //Vendors
 //Marco Fine Arts
 Route::get('/vendors/marcoFineArts', 'MacroFineArtsController@getPendingOrders');

@@ -59,6 +59,8 @@ class OrderProductsController extends Controller
 
         DB::commit();
 
+        $str = "Orders Updated";
+
         echo $str;
 
     }

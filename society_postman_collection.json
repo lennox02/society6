@@ -1,0 +1,281 @@
+{
+	"info": {
+		"_postman_id": "98dbc3c5-ca9c-4b4c-b310-5b21a80b3efb",
+		"name": "society6",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "createCreatives",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "meta[name=\"csrf-token\"]",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"creatives\":[\n        {\n            \"artist_id\":2,\n            \"name\":\"FooArt\",\n            \"url\":\"example.com/1234\",\n            \"description\":\"This art about Foo\"\n        },\n        {\n            \"artist_id\":2,\n            \"name\":\"BarArt\",\n            \"url\":\"example.com/1235\",\n            \"description\":\"This art about Bar\"\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost/society6/public/creatives/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"society6",
+						"public",
+						"creatives",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createProducts",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "meta[name=\"csrf-token\"]",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"products\":[\n        {\n            \"creatives_id\":2,\n            \"product_type\":1,\n            \"name\":\"FooArt Small T-Shirt\"\n        },\n        {\n            \"creatives_id\":2,\n            \"product_type\":6,\n            \"name\":\"FooArt Print\"\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost/society6/public/products/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"society6",
+						"public",
+						"products",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createOrders",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "meta[name=\"csrf-token\"]",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orders\":[\n        {\n            \"user_id\":1,\n            \"products\":[\n                {\n                    \"id\":3,\n                    \"qty\":1,\n                    \"vendor\":1\n                },\n                {\n                    \"id\":1,\n                    \"qty\":1,\n                    \"vendor\":1\n                },\n                {\n                    \"id\":4,\n                    \"qty\":4,\n                    \"vendor\":2\n                },\n                {\n                    \"id\":2,\n                    \"qty\":4,\n                    \"vendor\":2\n                }\n            ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost/society6/public/orders/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"society6",
+						"public",
+						"orders",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "marcoFineArtsGetOrders",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "meta[name=\"csrf-token\"]",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost/society6/public/vendors/marcoFineArts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"society6",
+						"public",
+						"vendors",
+						"marcoFineArts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dreamJunctionGetOrders",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "meta[name=\"csrf-token\"]",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost/society6/public/vendors/dreamJunction",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"society6",
+						"public",
+						"vendors",
+						"dreamJunction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateOrderProducts - marco",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "meta[name=\"csrf-token\"]",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"order_products\":[\n        {\n            \"id\":\"4\",\n            \"status\":\"7\"\n        },\n        {\n            \"id\":\"5\",\n            \"status\":\"7\"\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost/society6/public/orderProducts/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"society6",
+						"public",
+						"orderProducts",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateOrderProducts - dream",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "X-CSRF-TOKEN",
+						"type": "text",
+						"value": "meta[name=\"csrf-token\"]",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"order_products\":[\n        {\n            \"id\":\"2\",\n            \"status\":\"7\"\n        },\n        {\n            \"id\":\"3\",\n            \"status\":\"7\"\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost/society6/public/orderProducts/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"society6",
+						"public",
+						"orderProducts",
+						"update"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
