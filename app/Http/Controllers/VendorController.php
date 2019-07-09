@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\OrderProducts as OrderProducts;
 use App\Orders as Orders;
 use App\Users as Users;
-use App\Repositories\VendorRepository;
+use App\Repositories\Interfaces\VendorRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use stdClass;
@@ -17,7 +17,7 @@ abstract class VendorController extends Controller
 
     private $vendorRepository;
 
-    function __construct(VendorRepository $vendorRepository) {
+    function __construct(VendorRepositoryInterface $vendorRepository) {
         $this->vendorRepository = $vendorRepository;
     }
 

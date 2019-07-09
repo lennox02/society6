@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Creatives as Creatives;
-use App\Repositories\CreativesRepository;
+use App\Repositories\Interfaces\CreativesRepositoryInterface;
 use Illuminate\Http\Request;
 
 class CreativesController extends Controller
@@ -11,7 +11,7 @@ class CreativesController extends Controller
 
     private $creativesRepository;
 
-    function __construct(CreativesRepository $creativesRepository) {
+    function __construct(CreativesRepositoryInterface $creativesRepository) {
         $this->creativesRepository = $creativesRepository;
     }
 

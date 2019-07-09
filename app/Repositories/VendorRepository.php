@@ -1,9 +1,10 @@
 <?php
 namespace App\Repositories;
-use App\Orders as Orders;
+
+use App\Repositories\Interfaces\VendorRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 
-class VendorRepository {
+class VendorRepository implements VendorRepositoryInterface {
 
     public function getPendingOrders(int $vendor, int $status){
         return DB::table('orders')

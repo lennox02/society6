@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\OrderProducts as OrderProducts;
-use App\Repositories\OrderProductsRepository;
+use App\Repositories\Interfaces\OrderProductsRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,7 +12,7 @@ class OrderProductsController extends Controller
 
     private $orderProductsRepository;
 
-    function __construct(OrderProductsRepository $orderProductsRepository) {
+    function __construct(OrderProductsRepositoryInterface $orderProductsRepository) {
         $this->orderProductsRepository = $orderProductsRepository;
     }
 
