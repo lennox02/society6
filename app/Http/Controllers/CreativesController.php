@@ -36,7 +36,7 @@ class CreativesController extends Controller
             $list[] = $c;
         }
 
-        print_r($list);
+        return json_encode($list);
     }
 
     /*
@@ -71,7 +71,7 @@ class CreativesController extends Controller
             }
         }
 
-        print_r($created);
+        return json_encode($created);
     }
 
     /*
@@ -101,7 +101,7 @@ class CreativesController extends Controller
             $updated[] = $this->setCreativesValues($creative, $input);
         }
 
-        print_r($updated);
+        return json_encode($updated);
     }
 
     //dynamically check if input is a property of Creatives and set it
