@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\OrderProducts as OrderProducts;
+use App\Repositories\OrderProductsRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class OrderProductsController extends Controller
 {
+
+    private $orderProductsRepository;
+
+    function __construct(OrderProductsRepository $orderProductsRepository) {
+        $this->orderProductsRepository = $orderProductsRepository;
+    }
 
     /*
         EXPECTED JSON FORMAT
@@ -39,7 +46,7 @@ class OrderProductsController extends Controller
             if(is_numeric($orderProduct['id']) && is_numeric($orderProduct['status'])){
 
                 try {
-                    $op = OrderProducts::findOrFail($orderProduct['id']);
+                    $op = $this->orderProductsRepository->getById($orderProduct['id']);
                     $op->status = $orderProduct['status'];
                     $op->save();
                 } catch (Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -50,18 +57,16 @@ class OrderProductsController extends Controller
 
             } else {
                 DB::rollBack();
-                die('BAD DATA.  Order Product ID "' . $orderProduct['id'] .
-                    '" or Order Product Status "' . $orderProduct['status'] .
-                    '" is not a number');
+                return 'BAD DATA.  Order Product ID "' . $orderProduct['id'] .
+                       '" or Order Product Status "' . $orderProduct['status'] .
+                       '" is not a number';
             }
 
         }
 
         DB::commit();
 
-        $str = "Orders Updated";
-
-        echo $str;
+        return "Orders Updated";
 
     }
 

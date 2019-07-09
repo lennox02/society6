@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Creatives as Creatives;
+use App\Repositories\CreativesRepository;
 use Illuminate\Http\Request;
 
 class CreativesController extends Controller
 {
+
+    private $creativesRepository;
+
+    function __construct(CreativesRepository $creativesRepository) {
+        $this->creativesRepository = $creativesRepository;
+    }
 
     /*
         EXAMPLE INPUT
@@ -25,7 +32,7 @@ class CreativesController extends Controller
         $creatives = $request->input('creatives');
         $list = [];
         foreach($creatives as $creative){
-            $c = Creatives::find($creative->input('id'));
+            $c = $this->creativesRepository->getById($creative->input('id'));
             $list[] = $c;
         }
 
@@ -90,7 +97,7 @@ class CreativesController extends Controller
         $inputs = $request->input('creatives');
         $updated = [];
         foreach($inputs as $input){
-            $creative = Creatives::find($input['id']);
+            $creative = $this->creativesRepository->getById($input['id']);
             $updated[] = $this->setCreativesValues($creative, $input);
         }
 

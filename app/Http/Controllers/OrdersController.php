@@ -82,7 +82,8 @@ class OrdersController extends Controller
             $order->save();
         }
 
-        print_r($created);
+        return json_encode($created);
+
     }
 
 }
