@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Creatives as Creatives;
+use App\Repositories\Interfaces\CreativesRepositoryInterface;
 use Illuminate\Http\Request;
 
 class CreativesController extends Controller
 {
+
+    private $creativesRepository;
+
+    function __construct(CreativesRepositoryInterface $creativesRepository) {
+        $this->creativesRepository = $creativesRepository;
+    }
 
     /*
         EXAMPLE INPUT
@@ -25,11 +32,11 @@ class CreativesController extends Controller
         $creatives = $request->input('creatives');
         $list = [];
         foreach($creatives as $creative){
-            $c = Creatives::find($creative->input('id'));
+            $c = $this->creativesRepository->getById($creative->input('id'));
             $list[] = $c;
         }
 
-        print_r($list);
+        return json_encode($list);
     }
 
     /*
@@ -64,7 +71,7 @@ class CreativesController extends Controller
             }
         }
 
-        print_r($created);
+        return json_encode($created);
     }
 
     /*
@@ -90,11 +97,11 @@ class CreativesController extends Controller
         $inputs = $request->input('creatives');
         $updated = [];
         foreach($inputs as $input){
-            $creative = Creatives::find($input['id']);
+            $creative = $this->creativesRepository->getById($input['id']);
             $updated[] = $this->setCreativesValues($creative, $input);
         }
 
-        print_r($updated);
+        return json_encode($updated);
     }
 
     //dynamically check if input is a property of Creatives and set it

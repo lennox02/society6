@@ -36,7 +36,7 @@ class ProductsController extends Controller
             $created[] = $this->setProductsValues($creative, $input);
         }
 
-        print_r($created);
+        return json_encode($created);
     }
 
     //dynamically check if input is a property of Products and set it
